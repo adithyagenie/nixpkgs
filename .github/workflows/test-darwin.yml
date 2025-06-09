@@ -1,0 +1,35 @@
+name: Test Darwin Build
+on:
+  push:
+    branches:
+      - test-darwin-build
+  workflow_dispatch:
+
+jobs:
+  darwin-x86_64:
+    name: Build for x86_64-darwin
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v22
+      
+      - name: Test feishin x86_64-darwin build
+        run: |
+          nix-build -A feishin --system x86_64-darwin
+
+  darwin-aarch64:
+    name: Build for aarch64-darwin
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v22
+      
+      - name: Test feishin aarch64-darwin build
+        run: |
+          nix-build -A feishin --system aarch64-darwin
